@@ -1,0 +1,122 @@
+import java.util.Scanner;
+
+// Superclass
+class HealthHub
+{
+	private boolean accountCreated = false;
+	private String username;
+	private String password;
+
+    // Method to display the welcome message
+    public void displayWlcMsg()
+	{
+        System.out.println("Discover Your Wellness: Welcome to HealthHub");
+        System.out.println("**********************************************");
+        System.out.println("Please Login or Create an account to get started...");
+    }
+
+    // Method to display menu options for the user
+    public void displayMenu()
+	{
+        System.out.println("1 : Login");
+        System.out.println("2 : Create an Account");
+        System.out.println("3 : Exit");
+    }
+
+    // Method to handle user login and verification
+    public void userLogin() 
+	{
+        if (!accountCreated) 
+		{
+            System.out.println("You need to create an account first!");
+            return;
+        }
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Username: ");
+        String inputUsername = sc.nextLine();
+        System.out.println("Enter Password: ");
+        String inputPassword = sc.nextLine();
+
+        // Check if entered username and password match the stored credentials
+        if (inputUsername.equals(username) && inputPassword.equals(password)) 
+		{
+            System.out.println("Login successfully!!!!");
+            // Continue with the rest of the program logic
+        }
+		else
+		{
+            System.out.println("Invalid username or password. Please try again.");
+        }
+	}
+
+    // Method to create a new account
+    public void createAccount() 
+	{
+        if (accountCreated) 
+		{
+            System.out.println("Account already created!");
+            return;
+        }
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter new Username: ");
+        username = sc.nextLine();
+        System.out.println("Create new password: ");
+        String newpass = sc.nextLine();
+        System.out.println("Confirm password: ");
+        String confirmpass = sc.nextLine();
+
+        // Check if passwords match
+        if (newpass.equals(confirmpass))
+		{
+            password = newpass;
+            accountCreated = true;
+            System.out.println("Account Created successfully!!!!");
+        }
+		else 
+		{
+            System.out.println("Password do not match. Account Creation failed.....");
+        }
+    }
+}
+
+// Driver class
+class HealthHubApp 
+{
+    public static void main(String[] args) 
+	{
+        HealthHub ref = new HealthHub();
+        ref.displayWlcMsg(); // Display welcome message
+        ref.displayMenu(); // Display menu options
+
+        Scanner sc = new Scanner(System.in);
+        int choice = 0;
+
+        do 
+		{
+            System.out.println("Enter your choice: ");
+            choice = sc.nextInt();
+            sc.nextLine(); // Consume newline
+
+            switch (choice)
+			{
+                case 1:
+                    ref.userLogin();
+                    break;
+                case 2:
+                    ref.createAccount();
+                    break;
+                case 3:
+                    System.out.println("Exiting HealthHub. Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again....");
+            }
+        } while (choice != 3);
+
+        // Continue with the rest of the program logic here
+        // You can add more code to handle further operations or user interactions
+        // After login or account creation
+    }
+}
